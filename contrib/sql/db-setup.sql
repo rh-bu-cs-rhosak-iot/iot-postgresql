@@ -33,3 +33,6 @@ ALTER TABLE public.junction_update OWNER TO $POSTGRESQL_USER;
 
 COPY junction(id,name,latitude,longitude) FROM '$SQL_DIR/junction_info.csv' DELIMITER ',' CSV HEADER;
 COPY meter(id,address,latitude,longitude) FROM '$SQL_DIR//meter_info.csv' DELIMITER ',' CSV HEADER;
+
+CREATE TABLE streets AS SELECT substring(address from '[0-9]+ (.*)') as name FROM meter GROUP BY name;
+ALTER TABLE public.streets OWNER TO $POSTGRESQL_USER;
